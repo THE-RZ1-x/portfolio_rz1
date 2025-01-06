@@ -28,23 +28,34 @@ body {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  z-index: 2;
   isolation: isolate;
   display: flex;
   flex-direction: column;
 }
 
-/* Content layers */
+.content-wrapper {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar styles */
 .navbar {
   position: relative;
   z-index: 100;
+  width: 100%;
 }
 
+/* Content layers */
 .hero-section,
 .section,
 .container {
   position: relative;
   z-index: 10;
+  flex: 1;
 }
 
 /* Interactive elements */

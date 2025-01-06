@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { blink, fadeIn, slideUp, glitch } from '../../styles/animations';
 
 // تنسيق الحاوية الرئيسية للصفحة الأولى
-const HeroContainer = styled.div`
+const HeroContainer = styled(motion.div)`
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -36,16 +37,16 @@ const HeroContent = styled.div`
 
 // تنسيق نافذة الطرفية
 const TerminalWindow = styled(motion.div)`
-  background: rgba(16, 24, 39, 0.8);
+  background: ${({ theme }) => theme.terminal.background};
   border-radius: 10px;
   padding: 1.5rem;
   margin: 2rem auto;
   width: 100%;
   max-width: 750px;
-  border: 1px solid rgba(0, 247, 255, 0.2);
+  border: 1px solid ${({ theme }) => theme.border};
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 247, 255, 0.1);
+  box-shadow: ${({ theme }) => theme.shadow};
   
   &::before {
     content: '';
@@ -54,8 +55,28 @@ const TerminalWindow = styled(motion.div)`
     left: 0;
     right: 0;
     height: 30px;
-    background: rgba(0, 247, 255, 0.1);
+    background: ${({ theme }) => theme.terminal.background};
     border-radius: 10px 10px 0 0;
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      ${({ theme }) => theme.terminal.background} 0px,
+      ${({ theme }) => theme.terminal.background} 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    opacity: 0.1;
+    pointer-events: none;
   }
 `;
 
@@ -78,17 +99,20 @@ const TerminalButton = styled.div`
 
 // تنسيق سطر الأوامر
 const TerminalPrompt = styled.div`
-  color: var(--primary);
+  color: ${({ theme }) => theme.terminal.prompt};
   font-family: 'Fira Code', monospace;
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 0.8rem;
   font-size: ${props => props.large ? 'clamp(1.5rem, 3vw, 2.2rem)' : '1rem'};
+  opacity: 0.9;
 
   &::before {
     content: '>';
     color: #50fa7b;
+    opacity: 0.8;
+    text-shadow: 0 0 5px #50fa7b;
     ${props => props.large && `
       font-size: 1.5rem;
     `}
@@ -105,68 +129,36 @@ const TerminalText = styled.div`
 `;
 
 // تنسيق اسم المستخدم
-const TerminalName = styled.div`
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  font-weight: 600;
-  color: #00ff00;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Fira Code', monospace;
+const TerminalName = styled.span`
   position: relative;
-`;
-
-// تنسيق المؤشر
-const Cursor = styled.span`
-  display: inline-block;
-  width: 8px;
-  height: 1.2em;
-  background: #00ff00;
-  margin-left: 4px;
-  animation: blink 1s infinite;
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
+  color: ${({ theme }) => theme.primary};
+  text-shadow: 0 0 8px ${({ theme }) => theme.primary}40;
+  letter-spacing: 2px;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-weight: 500;
+  pointer-events: none;
 `;
 
 // تنسيق حرف مكتوب
 const TypedCharacter = styled.span`
   display: inline-block;
-  color: #00ff00;
-  text-shadow: 0 0 5px #00ff00;
-  animation: typeJiggle 0.1s ease;
-
-  @keyframes typeJiggle {
-    0% { transform: translateY(0); }
-    25% { transform: translateY(-1px); }
-    75% { transform: translateY(1px); }
-    100% { transform: translateY(0); }
-  }
+  position: relative;
+  margin-right: ${props => props.isSpace ? '0.5em' : '0'};
+  text-shadow: 0 0 10px ${({ theme }) => theme.primary};
+  opacity: 0.9;
+  pointer-events: none;
 `;
 
-// تنسيق التوقيع
-const Signature = styled.span`
+// تنسيق المؤشر
+const Cursor = styled.span`
   display: inline-block;
-  background: #00ff00;
-  color: #000;
-  font-family: 'Fira Code', monospace;
-  font-size: clamp(1rem, 1.5vw, 1.3rem);
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  box-shadow: 0 0 10px #00ff00,
-              inset 0 0 5px #00ff00;
-  text-shadow: none;
-  border: 1px solid #00ff00;
-  margin-left: 15px;
-  position: relative;
-  z-index: 2;
-  opacity: ${props => props.show ? 1 : 0};
-  transform: ${props => props.show ? 'translateY(0)' : 'translateY(10px)'};
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  width: 10px;
+  height: 1.2em;
+  background-color: ${({ theme }) => theme.primary};
+  margin-left: 4px;
+  animation: ${blink} 1s step-end infinite;
+  box-shadow: 0 0 8px ${({ theme }) => theme.primary};
+  opacity: 0.8;
 `;
 
 // تنسيق تحية الترحيب
@@ -249,24 +241,18 @@ const StyledButton = styled(Link)`
 
 // مكون الصفحة الرئيسية
 const Hero = () => {
-  // حالة النص المعروض
   const [displayText, setDisplayText] = useState('');
-  // حالة المؤشر
   const [isTyping, setIsTyping] = useState(true);
-  // حالة الحذف
   const [isDeleting, setIsDeleting] = useState(false);
-  // النص الحالي
-  const [currentText, setCurrentText] = useState('name'); // 'name' or 'signature'
-  // الاسم الكامل
-  const fullName = 'SALAH-EDDINE RHAZOUANE';
-  // التوقيع
+  const [currentText, setCurrentText] = useState('name');
+  const [isVisible, setIsVisible] = useState(false);
+  const fullName = 'SALAH-EDDINE  RHAZOUANE';
   const signature = 'RZ1';
 
-  // تأثير الكتابة
   useEffect(() => {
-    let timeout;
+    setIsVisible(true);
     
-    // دالة لكتابة النص حرفاً حرفاً
+    let timeout;
     const typeText = () => {
       const currentFullText = currentText === 'name' ? fullName : signature;
       
@@ -274,11 +260,11 @@ const Hero = () => {
         if (displayText !== currentFullText) {
           timeout = setTimeout(() => {
             setDisplayText(currentFullText.slice(0, displayText.length + 1));
-          }, 150);
+          }, 50);
         } else {
           timeout = setTimeout(() => {
             setIsDeleting(true);
-          }, 1000); // Wait before starting to delete
+          }, 2000);
         }
       } else if (isDeleting) {
         if (displayText === '') {
@@ -287,7 +273,7 @@ const Hero = () => {
         } else {
           timeout = setTimeout(() => {
             setDisplayText(displayText.slice(0, -1));
-          }, 100);
+          }, 30);
         }
       }
     };
@@ -296,7 +282,6 @@ const Hero = () => {
     return () => clearTimeout(timeout);
   }, [displayText, isTyping, isDeleting, currentText]);
 
-  // دالة للحصول على تحية الترحيب
   const getGreeting = () => {
     const hour = new Date().getHours();
     if (hour < 12) return "Good Morning";
@@ -304,39 +289,41 @@ const Hero = () => {
     return "Good Evening";
   };
 
-  // متغيرات التحريك
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  };
-
   return (
-    <HeroContainer>
+    <HeroContainer
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isVisible ? 1 : 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <HeroContent>
         <motion.div
-          variants={containerVariants}
           initial="hidden"
           animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2
+              }
+            }
+          }}
         >
-          <Greeting variants={itemVariants}>
+          <Greeting
+            variants={{
+              hidden: { y: 20, opacity: 0 },
+              visible: { y: 0, opacity: 1 }
+            }}
+          >
             {getGreeting()}, Welcome to my terminal
           </Greeting>
 
-          <TerminalWindow variants={itemVariants}>
+          <TerminalWindow
+            variants={{
+              hidden: { y: 20, opacity: 0 },
+              visible: { y: 0, opacity: 1 }
+            }}
+          >
             <TerminalHeader>
               <TerminalButton color="#ff5f56" />
               <TerminalButton color="#ffbd2e" />
@@ -352,6 +339,7 @@ const Hero = () => {
                 {displayText.split('').map((char, index) => (
                   <TypedCharacter 
                     key={index}
+                    isSpace={index === 11}
                   >
                     {char}
                   </TypedCharacter>
@@ -361,16 +349,35 @@ const Hero = () => {
             </TerminalPrompt>
           </TerminalWindow>
 
-          <SubTitle variants={itemVariants}>
+          <SubTitle
+            variants={{
+              hidden: { y: 20, opacity: 0 },
+              visible: { y: 0, opacity: 1 }
+            }}
+          >
             A passionate Full Stack Developer and AI enthusiast, crafting innovative digital solutions 
             that bridge creativity with cutting-edge technology.
           </SubTitle>
 
-          <ButtonContainer variants={itemVariants}>
-            <StyledButton to="/projects" $primary>
+          <ButtonContainer
+            variants={{
+              hidden: { y: 20, opacity: 0 },
+              visible: { y: 0, opacity: 1 }
+            }}
+          >
+            <StyledButton 
+              to="/projects" 
+              $primary
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               View My Work
             </StyledButton>
-            <StyledButton to="/contact">
+            <StyledButton 
+              to="/contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               Get In Touch
             </StyledButton>
           </ButtonContainer>
