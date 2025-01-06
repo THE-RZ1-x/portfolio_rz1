@@ -4,6 +4,12 @@
 A modern, interactive personal portfolio website built with React and Vite, featuring terminal-style animations and professional CV presentation.
 موقع محفظة شخصية حديث وتفاعلي مبني باستخدام React و Vite، يتميز بتأثيرات حركية على نمط الطرفية وعرض احترافي للسيرة الذاتية.
 
+## 🌐 Live Site | الموقع المباشر
+
+Visit the live site: [RZ1 Portfolio](https://the-rz1-x.github.io/portfolio_rz1/)
+
+زيارة الموقع المباشر: [محفظة RZ1](https://the-rz1-x.github.io/portfolio_rz1/)
+
 ## ✨ المميزات | Features
 
 - Terminal-style typing animation in Hero section | تأثير الكتابة بنمط الطرفية في القسم الرئيسي
@@ -13,6 +19,7 @@ A modern, interactive personal portfolio website built with React and Vite, feat
 - Neon theme with modern aesthetics | سمة نيون مع جماليات عصرية
 - Framer Motion animations | تحريكات باستخدام Framer Motion
 - Dynamic routing | توجيه ديناميكي
+- Social media integration | تكامل وسائل التواصل الاجتماعي
 
 ## 🛠️ التقنيات المستخدمة | Tech Stack
 
@@ -46,11 +53,12 @@ portfolio/
 
 1. نسخ المستودع | Clone the repository:
 ```bash
-git clone [your-repo-url]
+git clone https://github.com/THE-RZ1-x/portfolio_rz1.git
 ```
 
 2. تثبيت التبعيات | Install dependencies:
 ```bash
+cd portfolio_rz1
 npm install
 ```
 
@@ -63,6 +71,12 @@ npm run dev
 ```bash
 npm run build
 ```
+
+## 🔗 Connect With Me | تواصل معي
+
+- GitHub: [THE-RZ1-x](https://github.com/THE-RZ1-x)
+- Reddit: [Illustrious_Sea_2752](https://www.reddit.com/user/Illustrious_Sea_2752/)
+- Telegram: [RZ1_x](https://t.me/RZ1_x)
 
 ## 🎨 المكونات الرئيسية | Key Components
 
@@ -107,8 +121,7 @@ export default defineConfig({
 
 ## 📄 الترخيص | License
 
-MIT License - يمكنك استخدام هذا المشروع لمحفظتك الخاصة!
-MIT License - feel free to use this project for your own portfolio!
+MIT License | رخصة MIT
 
 ## 👨‍💻 المؤلف | Author
 
