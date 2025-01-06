@@ -8,7 +8,7 @@ const NavContainer = styled.nav`
   top: 0;
   left: 0;
   right: 0;
-  height: 80px;
+  height: 60px;
   background: rgba(10, 25, 47, 0.95);
   backdrop-filter: blur(10px);
   display: flex;
@@ -17,9 +17,11 @@ const NavContainer = styled.nav`
   padding: 0 50px;
   z-index: 1000;
   transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(0, 247, 255, 0.1);
 
   @media (max-width: 768px) {
     padding: 0 20px;
+    height: 50px;
   }
 `;
 
@@ -29,6 +31,10 @@ const Logo = styled(Link)`
   color: var(--primary);
   text-decoration: none;
   transition: all 0.3s ease;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 
   &:hover {
     color: var(--secondary);
@@ -43,35 +49,52 @@ const NavLinks = styled.div`
 
   @media (max-width: 768px) {
     position: fixed;
-    top: 80px;
+    top: 50px;
     right: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
     flex-direction: column;
-    background: rgba(10, 25, 47, 0.95);
+    background: rgba(10, 25, 47, 0.98);
     backdrop-filter: blur(10px);
     width: 100%;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 50px);
     padding: 2rem;
-    transition: all 0.3s ease;
+    gap: 2rem;
+    transition: right 0.3s ease-in-out;
+    overflow-y: auto;
   }
 `;
 
 const NavLink = styled(Link)`
   color: var(--light);
   text-decoration: none;
+  font-size: 1rem;
   font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
   transition: all 0.3s ease;
-
-  &:hover {
-    color: var(--primary);
-    background: rgba(0, 247, 255, 0.1);
-  }
+  position: relative;
 
   @media (max-width: 768px) {
+    font-size: 1.2rem;
     width: 100%;
     text-align: center;
     padding: 1rem;
+  }
+
+  &:hover {
+    color: var(--primary);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
   }
 `;
 
@@ -82,14 +105,15 @@ const MobileMenuButton = styled.button`
   color: var(--light);
   font-size: 1.5rem;
   cursor: pointer;
+  padding: 0.5rem;
   transition: all 0.3s ease;
-
-  &:hover {
-    color: var(--primary);
-  }
 
   @media (max-width: 768px) {
     display: block;
+    
+    &:hover {
+      color: var(--primary);
+    }
   }
 `;
 

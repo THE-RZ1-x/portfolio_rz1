@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar/Navbar'
@@ -37,8 +37,8 @@ function App() {
       <Router>
         <div className="App">
           <AnimatedBackground />
+          <Navbar onThemeToggle={toggleTheme} currentTheme={theme} />
           <div className="content-wrapper">
-            <Navbar onThemeToggle={toggleTheme} currentTheme={theme} />
             <Routes>
               <Route path="/" element={<Hero />} />
               <Route path="/cv" element={<CV />} />
