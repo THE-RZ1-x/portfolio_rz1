@@ -27,10 +27,10 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Clean install dependencies
+      - name: Install Dependencies
         run: |
-          npm clean-install
-          npm install --save-dev terser
+          npm install
+          npm ci
 
       - name: Build
         run: npm run build
