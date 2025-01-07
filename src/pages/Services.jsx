@@ -1,6 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { 
+  FaServer, 
+  FaNetworkWired, 
+  FaLaptopCode, 
+  FaShieldAlt, 
+  FaCode,
+  FaDatabase,
+  FaBug,
+  FaMobileAlt,
+  FaDesktop
+} from 'react-icons/fa';
+import { BiSupport } from 'react-icons/bi';
 
 const ServicesContainer = styled.div`
   padding: 100px 20px;
@@ -61,34 +73,49 @@ const SectionSubtitle = styled.p`
 
 const services = [
   {
-    icon: "💻",
+    icon: <FaServer />,
+    title: "System Administration",
+    description: "Expert system administration services including server management, system optimization, and infrastructure maintenance."
+  },
+  {
+    icon: <FaNetworkWired />,
+    title: "Network Solutions",
+    description: "Comprehensive networking services including setup, maintenance, and security implementation for both small and large-scale networks."
+  },
+  {
+    icon: <FaLaptopCode />,
     title: "Web Development",
-    description: "Building responsive and dynamic web applications using modern technologies like React, Next.js, and Node.js."
+    description: "Full-stack web development using modern technologies like React, Node.js, and various front-end frameworks for responsive and dynamic applications."
   },
   {
-    icon: "🎨",
-    title: "UI/UX Design",
-    description: "Creating intuitive and beautiful user interfaces with a focus on user experience and modern design principles."
+    icon: <FaShieldAlt />,
+    title: "Cybersecurity",
+    description: "Implementation of robust security measures, vulnerability assessment, and protection against cyber threats."
   },
   {
-    icon: "📱",
-    title: "Mobile Development",
-    description: "Developing cross-platform mobile applications using React Native and Flutter."
+    icon: <FaCode />,
+    title: "Software Development",
+    description: "Custom software solutions and applications development using various programming languages and modern development practices."
   },
   {
-    icon: "🔧",
-    title: "API Development",
-    description: "Building robust and scalable RESTful APIs using Node.js, Express, and MongoDB."
+    icon: <FaDatabase />,
+    title: "Database Management",
+    description: "Database design, optimization, and management services ensuring efficient data storage and retrieval systems."
   },
   {
-    icon: "🚀",
-    title: "Performance Optimization",
-    description: "Optimizing web applications for speed, SEO, and better user experience."
+    icon: <FaMobileAlt />,
+    title: "Mobile Solutions",
+    description: "Development of mobile applications and responsive web solutions for seamless mobile user experience."
   },
   {
-    icon: "🛡️",
-    title: "Security Solutions",
-    description: "Implementing security best practices and protecting applications from common vulnerabilities."
+    icon: <FaBug />,
+    title: "Testing & Debugging",
+    description: "Comprehensive testing services and debugging solutions to ensure high-quality, error-free applications."
+  },
+  {
+    icon: <BiSupport />,
+    title: "Technical Support",
+    description: "Reliable technical support and maintenance services for all your IT infrastructure needs."
   }
 ];
 
@@ -97,9 +124,8 @@ const Services = () => {
     <ServicesContainer>
       <SectionTitle>My Services</SectionTitle>
       <SectionSubtitle>
-        Providing high-quality development solutions for your digital needs
+        Comprehensive IT Solutions & Development Services
       </SectionSubtitle>
-      
       <ServiceGrid>
         {services.map((service, index) => (
           <ServiceCard
