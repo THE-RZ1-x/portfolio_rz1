@@ -16,6 +16,7 @@ html, body {
   background: var(--dark);
   color: var(--light);
   font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
 }
 
 #root {
@@ -29,6 +30,7 @@ html, body {
   display: flex;
   flex-direction: column;
   position: relative;
+  touch-action: manipulation;
 }
 
 .content-wrapper {
@@ -38,6 +40,9 @@ html, body {
   z-index: 1;
   width: 100%;
   overflow-x: hidden;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 20px 40px;
 }
 
 /* Navbar */
@@ -84,11 +89,11 @@ h1, h2, h3, h4, h5, h6, p, span {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--dark);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -98,6 +103,12 @@ h1, h2, h3, h4, h5, h6, p, span {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--secondary);
+}
+
+/* Improved text selection */
+::selection {
+  background: var(--primary);
+  color: var(--dark);
 }
 
 /* Utility Classes */
@@ -186,18 +197,20 @@ h1, h2, h3, h4, h5, h6, p, span {
 
 @media (max-width: 768px) {
   .content-wrapper {
-    padding-top: 50px;
+    padding: 60px 15px 30px;
   }
-}
-
-/* Add viewport meta tag for proper mobile scaling */
-@media screen and (max-width: 768px) {
   html {
     font-size: 14px;
   }
   
   body {
     overflow-x: hidden;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
   }
 }
 
@@ -216,9 +229,5 @@ h1, h2, h3, h4, h5, h6, p, span {
 @media (max-width: 768px) {
   * {
     -webkit-tap-highlight-color: transparent;
-  }
-  
-  .App {
-    touch-action: manipulation;
   }
 }

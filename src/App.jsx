@@ -1,6 +1,7 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import Navbar from './components/Navbar/Navbar'
 import Hero from './components/Hero/Hero'
 import About from './pages/About'
@@ -12,11 +13,32 @@ import Contact from './pages/Contact'
 import AnimatedBackground from './components/Background/AnimatedBackground'
 import CV from './components/CV/CV'
 import Social from './components/Social/Social'
+import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner'
 import { darkTheme, lightTheme } from './styles/theme'
 import './App.css'
 
+const PageTransition = ({ children }) => {
+  const pageVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -20 }
+  }
+  return (
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={{ duration: 0.3 }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 function App() {
   const [theme, setTheme] = useState('dark')
+  const [isLoading, setIsLoading] = useState(true)
   const currentTheme = theme === 'light' ? lightTheme : darkTheme
 
   useEffect(() => {
@@ -24,12 +46,18 @@ function App() {
     if (savedTheme) {
       setTheme(savedTheme)
     }
+    // Simulate initial loading
+    setTimeout(() => setIsLoading(false), 1000)
   }, [])
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light'
     setTheme(newTheme)
     localStorage.setItem('theme', newTheme)
+  }
+
+  if (isLoading) {
+    return <LoadingSpinner />
   }
 
   return (
@@ -39,17 +67,21 @@ function App() {
           <AnimatedBackground />
           <Navbar onThemeToggle={toggleTheme} currentTheme={theme} />
           <div className="content-wrapper">
-            <Routes>
-              <Route path="/" element={<Hero />} />
-              <Route path="/cv" element={<CV />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/skills" element={<Skills />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/social" element={<Social />} />
-            </Routes>
+            <AnimatePresence mode="wait">
+              <Suspense fallback={<LoadingSpinner />}>
+                <Routes>
+                  <Route path="/" element={<PageTransition><Hero /></PageTransition>} />
+                  <Route path="/cv" element={<PageTransition><CV /></PageTransition>} />
+                  <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+                  <Route path="/skills" element={<PageTransition><Skills /></PageTransition>} />
+                  <Route path="/projects" element={<PageTransition><Projects /></PageTransition>} />
+                  <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
+                  <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
+                  <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+                  <Route path="/social" element={<PageTransition><Social /></PageTransition>} />
+                </Routes>
+              </Suspense>
+            </AnimatePresence>
           </div>
         </div>
       </Router>
