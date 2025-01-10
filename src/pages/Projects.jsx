@@ -111,6 +111,20 @@ const ProjectLink = styled.a`
 const Projects = () => {
   const projects = [
     {
+      title: 'RZ1 Crypto',
+      description: 'A cryptocurrency tracking and analysis platform providing real-time market data, price updates, and crypto insights.',
+      image: 'https://raw.githubusercontent.com/THE-RZ1-x/RZ1crypto/main/screenshot.png',
+      demo: 'https://the-rz1-x.github.io/RZ1crypto/',
+      github: 'https://github.com/THE-RZ1-x/RZ1crypto'
+    },
+    {
+      title: 'Profile Generator',
+      description: 'A dynamic profile generator tool that creates personalized user profiles with customizable features and modern design elements.',
+      image: 'https://raw.githubusercontent.com/THE-RZ1-x/RZ1_prfile_gen/main/screenshot.png',
+      demo: 'https://the-rz1-x.github.io/RZ1_prfile_gen/',
+      github: 'https://github.com/THE-RZ1-x/RZ1_prfile_gen'
+    },
+    {
       title: 'Multi Chat AI',
       description: 'An advanced AI chat application featuring multiple AI models including ChatGPT, Gemini, and Claude. Built with modern web technologies for seamless AI interactions.',
       image: 'https://raw.githubusercontent.com/THE-RZ1-x/multi_chat-ai/main/screenshot.png',

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const BlogContainer = styled.div`
   padding: 100px 20px;
@@ -15,16 +16,18 @@ const BlogGrid = styled.div`
   margin-top: 3rem;
 `;
 
-const BlogCard = styled(motion.article)`
+const BlogCard = styled(motion.div)`
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+  border-radius: 15px;
   overflow: hidden;
-  transition: all 0.3s ease;
   border: 1px solid rgba(0, 247, 255, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
 
   &:hover {
-    border-color: var(--primary);
     transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(0, 247, 255, 0.1);
   }
 `;
 
@@ -68,17 +71,6 @@ const BlogExcerpt = styled.p`
   margin-bottom: 1rem;
 `;
 
-const ReadMore = styled.a`
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 500;
-  display: inline-block;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
   color: var(--primary);
@@ -94,6 +86,30 @@ const SectionSubtitle = styled.p`
 `;
 
 const blogPosts = [
+  {
+    title: "Free RDP with GitHub Actions Workflow",
+    date: "January 10, 2025",
+    image: "https://images.unsplash.com/photo-1607743386760-88ac62b89b8a",
+    excerpt: "Learn how to create a free Remote Desktop environment using GitHub Actions workflow. Features Ubuntu Desktop with NoMachine, persistent storage, and automated setup. Perfect for development and testing.",
+    readTime: "12 min read",
+    link: "/blog/workflow-rdp"
+  },
+  {
+    title: "Setting Up RDP in GitHub Codespaces",
+    date: "January 10, 2025",
+    image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97",
+    excerpt: "Learn how to set up Remote Desktop Protocol (RDP) access to your GitHub Codespace, transforming it into a full virtual machine in the cloud. Complete with step-by-step instructions and troubleshooting tips.",
+    readTime: "10 min read",
+    link: "/blog/codespace-rdp"
+  },
+  {
+    title: "Understanding RAT Tools: Power and Responsibility",
+    date: "January 10, 2025",
+    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5",
+    excerpt: "An in-depth analysis of Remote Access Tools (RATs), their legitimate uses in system administration, and the importance of ethical usage. Featuring a curated collection of reliable tools from my GitHub repository.",
+    readTime: "8 min read",
+    link: "/blog/rat-tools"
+  },
   {
     title: "The Future of Web Development",
     date: "December 8, 2023",
@@ -139,6 +155,18 @@ const blogPosts = [
 ];
 
 const Blog = () => {
+  const navigate = useNavigate();
+
+  const handleBlogClick = (link) => {
+    if (link) {
+      if (link.startsWith('http')) {
+        window.open(link, '_blank');
+      } else {
+        navigate(link);
+      }
+    }
+  };
+
   return (
     <BlogContainer>
       <SectionTitle>Blog</SectionTitle>
@@ -150,16 +178,15 @@ const Blog = () => {
         {blogPosts.map((post, index) => (
           <BlogCard
             key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            onClick={() => handleBlogClick(post.link)}
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
           >
             <BlogImage style={{ backgroundImage: `url(${post.image})` }} />
             <BlogContent>
               <BlogTitle>{post.title}</BlogTitle>
               <BlogMeta>{post.date} • {post.readTime}</BlogMeta>
               <BlogExcerpt>{post.excerpt}</BlogExcerpt>
-              <ReadMore href="#">Read More</ReadMore>
             </BlogContent>
           </BlogCard>
         ))}

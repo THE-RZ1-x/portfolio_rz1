@@ -15,6 +15,9 @@ import CV from './components/CV/CV'
 import Social from './components/Social/Social'
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner'
 import { darkTheme, lightTheme } from './styles/theme'
+import RatToolsPost from './components/Blog/BlogPost'
+import CodespaceRdpPost from './components/Blog/CodespaceRdpPost'
+import WorkflowRdpPost from './components/Blog/WorkflowRdpPost'
 import './App.css'
 
 const PageTransition = ({ children }) => {
@@ -77,6 +80,9 @@ function App() {
                   <Route path="/projects" element={<PageTransition><Projects /></PageTransition>} />
                   <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
                   <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
+                  <Route path="/blog/rat-tools" element={<PageTransition><RatToolsPost /></PageTransition>} />
+                  <Route path="/blog/codespace-rdp" element={<PageTransition><CodespaceRdpPost /></PageTransition>} />
+                  <Route path="/blog/workflow-rdp" element={<PageTransition><WorkflowRdpPost /></PageTransition>} />
                   <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
                   <Route path="/social" element={<PageTransition><Social /></PageTransition>} />
                 </Routes>
