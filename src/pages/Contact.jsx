@@ -200,6 +200,7 @@ const Contact = () => {
   const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+  const autoReplyTemplateId = import.meta.env.VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -222,6 +223,24 @@ const Contact = () => {
         },
         { publicKey }
       );
+
+      // Optional auto-reply to the user
+      if (autoReplyTemplateId && formData.email) {
+        try {
+          await emailjs.send(
+            serviceId,
+            autoReplyTemplateId,
+            {
+              to_email: formData.email,
+              to_name: formData.name,
+            },
+            { publicKey }
+          );
+        } catch (autoErr) {
+          // Do not fail main flow if auto-reply fails
+          console.warn('Auto-reply failed', autoErr);
+        }
+      }
 
       setStatus({ type: 'success', text: 'Message sent successfully. Thank you!' });
       setFormData({ name: '', email: '', message: '' });

@@ -37,6 +37,7 @@ jobs:
           VITE_EMAILJS_SERVICE_ID: ${{ vars.EMAILJS_SERVICE_ID || secrets.EMAILJS_SERVICE_ID }}
           VITE_EMAILJS_TEMPLATE_ID: ${{ vars.EMAILJS_TEMPLATE_ID || secrets.EMAILJS_TEMPLATE_ID }}
           VITE_EMAILJS_PUBLIC_KEY: ${{ vars.EMAILJS_PUBLIC_KEY || secrets.EMAILJS_PUBLIC_KEY }}
+          VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID: ${{ vars.EMAILJS_AUTOREPLY_TEMPLATE_ID || secrets.EMAILJS_AUTOREPLY_TEMPLATE_ID }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
