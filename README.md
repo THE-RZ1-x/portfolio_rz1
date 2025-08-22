@@ -1,8 +1,8 @@
 # RZ1 Portfolio Website 🚀
 # موقع المحفظة الشخصية RZ1 🚀
 
-A modern, interactive personal portfolio website built with React and Vite, featuring terminal-style animations and professional CV presentation.
-موقع محفظة شخصية حديث وتفاعلي مبني باستخدام React و Vite، يتميز بتأثيرات حركية على نمط الطرفية وعرض احترافي للسيرة الذاتية.
+A modern, interactive personal portfolio website built with React and Vite, featuring 3D graphics, a blog, and a dynamic skill display.
+موقع محفظة شخصية حديث وتفاعلي مبني باستخدام React و Vite، يتميز برسومات ثلاثية الأبعاد، مدونة، وعرض ديناميكي للمهارات.
 
 ## 🌐 Live Site | الموقع المباشر
 
@@ -10,64 +10,78 @@ Visit the live site: [RZ1 Portfolio](https://the-rz1-x.github.io/portfolio_rz1/)
 
 زيارة الموقع المباشر: [محفظة RZ1](https://the-rz1-x.github.io/portfolio_rz1/)
 
-## ✨ المميزات | Features
+## ✨ Features | المميزات
 
-- Terminal-style typing animation in Hero section | تأثير الكتابة بنمط الطرفية في القسم الرئيسي
-- Interactive CV page with progress bars | صفحة سيرة ذاتية تفاعلية مع أشرطة تقدم
-- Professional two-column layout | تخطيط احترافي بعمودين
-- Responsive design for all devices | تصميم متجاوب لجميع الأجهزة
-- Neon theme with modern aesthetics | سمة نيون مع جماليات عصرية
-- Framer Motion animations | تحريكات باستخدام Framer Motion
-- Dynamic routing | توجيه ديناميكي
-- Social media integration | تكامل وسائل التواصل الاجتماعي
+- **Interactive 3D Elements**: Engaging 3D graphics using React Three Fiber. | عناصر ثلاثية الأبعاد تفاعلية باستخدام React Three Fiber.
+- **Dynamic Skills Cloud**: An interactive cloud showcasing technical skills. | سحابة مهارات ديناميكية تفاعلية لعرض المهارات التقنية.
+- **Blog Section**: A personal blog with dedicated pages for each post. | قسم مدونة شخصية مع صفحات مخصصة لكل مقال.
+- **Contact Form**: A fully functional contact form powered by EmailJS. | نموذج اتصال فعال بالكامل يعمل بواسطة EmailJS.
+- **Dark/Light Mode**: A theme toggler for user preference. | مفتاح للوضع الليلي/النهاري حسب تفضيل المستخدم.
+- **Animated Background**: A subtle, animated background for a modern feel. | خلفية متحركة لإضفاء طابع عصري.
+- **Terminal-style typing animation**: In the Hero section. | تأثير الكتابة بنمط الطرفية في القسم الرئيسي.
+- **Responsive Design**: For all devices. | تصميم متجاوب لجميع الأجهزة.
+- **Framer Motion animations**: Smooth page transitions and animations. | انتقالات وتحريكات سلسة للصفحات.
 
-## 🛠️ التقنيات المستخدمة | Tech Stack
+## 🛠️ Tech Stack | التقنيات المستخدمة
 
-- React 18+ | رياكت 18+
-- Vite | فايت
-- Styled Components | مكونات منسقة
-- Framer Motion | فريمر موشن
-- React Router DOM | راوتر دوم
-- React Icons | أيقونات رياكت
+- React 18+
+- Vite
+- Styled Components
+- Framer Motion
+- React Router DOM
+- React Icons
+- **React Three Fiber / Drei**: For 3D graphics.
+- **EmailJS**: For the contact form.
+- **TagCloud**: For the skills cloud.
+- **Intersection Observer**: For scroll-based animations.
 
-## 📁 هيكل المشروع | Project Structure
+## 📁 Project Structure | هيكل المشروع
 
 ```
 portfolio/
 ├── src/
-│   ├── components/
-│   │   ├── Hero/          # القسم الرئيسي
-│   │   ├── Navbar/        # شريط التنقل
-│   │   ├── CV/           # السيرة الذاتية
-│   │   ├── Journey/      # المسار المهني
-│   │   └── Projects/     # المشاريع
-│   ├── assets/           # الموارد
-│   ├── styles/           # الأنماط
-│   ├── App.jsx          # المكون الرئيسي
-│   └── main.jsx         # نقطة البداية
-├── public/              # الملفات العامة
-└── package.json         # تبعيات المشروع
+│   ├── assets/           # Images, PDFs, etc.
+│   ├── components/       # Reusable components
+│   │   ├── Blog/
+│   │   ├── CV/
+│   │   ├── Hero/
+│   │   ├── Interactive3D/
+│   │   ├── Navbar/
+│   │   ├── Skills/
+│   │   └── ... and more
+│   ├── pages/            # Page components
+│   │   ├── About.jsx
+│   │   ├── Blog.jsx
+│   │   ├── Contact.jsx
+│   │   ├── Projects.jsx
+│   │   └── Skills.jsx
+│   ├── services/         # API services (e.g., GitHub)
+│   ├── styles/           # Global styles and themes
+│   ├── App.jsx           # Main app component with routing
+│   └── main.jsx          # Entry point
+├── public/               # Public assets
+└── package.json          # Project dependencies
 ```
 
-## 🚀 البدء | Getting Started
+## 🚀 Getting Started | البدء
 
-1. نسخ المستودع | Clone the repository:
+1. Clone the repository:
 ```bash
 git clone https://github.com/THE-RZ1-x/portfolio_rz1.git
 ```
 
-2. تثبيت التبعيات | Install dependencies:
+2. Install dependencies:
 ```bash
 cd portfolio_rz1
 npm install
 ```
 
-3. تشغيل خادم التطوير | Run development server:
+3. Run development server:
 ```bash
 npm run dev
 ```
 
-4. بناء للإنتاج | Build for production:
+4. Build for production:
 ```bash
 npm run build
 ```
@@ -78,51 +92,36 @@ npm run build
 - Reddit: [Illustrious_Sea_2752](https://www.reddit.com/user/Illustrious_Sea_2752/)
 - Telegram: [RZ1_x](https://t.me/RZ1_x)
 
-## 🎨 المكونات الرئيسية | Key Components
+## 🎨 Key Components | المكونات الرئيسية
 
-### القسم الرئيسي | Hero Section
-- تأثير كتابة بنمط الطرفية | Terminal-style typing animation
-- حلقة نص لا نهائية | Infinite text loop
-- نظام ألوان نيون | Neon color scheme
+### Interactive 3D Sphere | مجال ثلاثي الأبعاد تفاعلي
+- Built with React Three Fiber and Drei. | تم بناؤه باستخدام React Three Fiber و Drei.
+- Showcases various technologies in an interactive way. | يعرض التقنيات المختلفة بطريقة تفاعلية.
 
-### صفحة السيرة الذاتية | CV Page
-- تخطيط احترافي بعمودين | Professional two-column layout
-- أشرطة تقدم تفاعلية | Interactive progress bars
-- أقسام مفصلة للمهارات والخبرة والتعليم | Detailed sections for skills, experience, and education
+### Skills Cloud | سحابة المهارات
+- A dynamic and interactive tag cloud. | سحابة وسوم ديناميكية وتفاعلية.
+- Visualizes skills in a creative manner. | تصور المهارات بطريقة إبداعية.
 
-### التنقل | Navigation
-- توجيه سلس | Smooth routing
-- شريط تنقل متجاوب | Responsive navbar
-- وظيفة تحميل السيرة الذاتية | CV download functionality
+### Blog | المدونة
+- A section for articles and tutorials. | قسم للمقالات والدروس.
+- Supports individual post pages with routing. | يدعم صفحات المقالات الفردية مع التوجيه.
 
-## 📱 التصميم المتجاوب | Responsive Design
+### Contact Form | نموذج الاتصال
+- Allows users to send messages directly from the site. | يسمح للمستخدمين بإرسال الرسائل مباشرة من الموقع.
+- Integrated with EmailJS. | متكامل مع EmailJS.
 
-- نهج الموبايل أولاً | Mobile-first approach
-- نقاط توقف لجميع الأجهزة | Breakpoints for all devices
-- تخطيطات محسنة لمختلف أحجام الشاشات | Optimized layouts for different screen sizes
+## 🤝 Contributing | المساهمة
 
-## 🔧 الإعداد | Configuration
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
 
-تعديل `vite.config.js` لإعداد البناء | Edit `vite.config.js` for build configuration:
-```javascript
-export default defineConfig({
-  plugins: [react()],
-  // إضافة إعدادات مخصصة هنا | Add custom configuration here
-})
-```
-
-## 🤝 المساهمة | Contributing
-
-1. انسخ المستودع | Fork the repository
-2. أنشئ فرع الميزة | Create your feature branch
-3. اعتمد تغييراتك | Commit your changes
-4. ادفع إلى الفرع | Push to the branch
-5. افتح طلب سحب | Open a Pull Request
-
-## 📄 الترخيص | License
+## 📄 License | الترخيص
 
 MIT License | رخصة MIT
 
-## 👨‍💻 المؤلف | Author
+## 👨‍💻 Author | المؤلف
 
 Salah-Eddine Rhazouane (RZ1) | صلاح الدين رحزوان
