@@ -108,8 +108,18 @@ const ProjectLink = styled.a`
   }
 `;
 
+// Generate a live website preview image (WordPress mShots)
+const getSiteShot = (url, width = 1200) => `https://s.wordpress.com/mshots/v1/${encodeURIComponent(url)}?w=${width}`;
+
 const Projects = () => {
   const projects = [
+    {
+      title: 'Maroc Cart',
+      description: 'Modern e-commerce frontend experience tailored for the Moroccan market.',
+      image: getSiteShot('https://maroc-cart-frontend.windsurf.build/'),
+      demo: 'https://maroc-cart-frontend.windsurf.build/',
+      // github: '' // optional repo URL if available
+    },
     {
       title: 'RZ1 Crypto',
       description: 'A cryptocurrency tracking and analysis platform providing real-time market data, price updates, and crypto insights.',
@@ -191,17 +201,29 @@ const Projects = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <ProjectImage image={project.image} />
+              <ProjectImage image={getSiteShot(project.demo)} />
               <ProjectContent>
                 <ProjectTitle>{project.title}</ProjectTitle>
                 <ProjectDescription>{project.description}</ProjectDescription>
                 <ProjectLinks>
-                  <ProjectLink href={project.demo} target="_blank" rel="noopener noreferrer">
+                  <ProjectLink
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <FaExternalLinkAlt /> Live Demo
                   </ProjectLink>
-                  <ProjectLink href={project.github} target="_blank" rel="noopener noreferrer">
-                    <FaGithub /> GitHub
-                  </ProjectLink>
+                  {project.github && (
+                    <ProjectLink
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <FaGithub /> GitHub
+                    </ProjectLink>
+                  )}
                 </ProjectLinks>
               </ProjectContent>
             </ProjectCard>

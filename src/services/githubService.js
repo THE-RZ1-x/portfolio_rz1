@@ -54,8 +54,8 @@ export const fetchUserStats = async (username) => {
   }
 };
 
-// Add this to your environment variables
+// Environment variables (Vite)
 export const GITHUB_CONFIG = {
-  username: process.env.REACT_APP_GITHUB_USERNAME || 'your-username',
-  token: process.env.REACT_APP_GITHUB_TOKEN
+  username: import.meta.env.VITE_GITHUB_USERNAME || 'your-username',
+  token: import.meta.env.VITE_GITHUB_TOKEN
 };

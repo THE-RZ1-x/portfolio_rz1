@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaGithub, FaReddit, FaTelegram, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { BiSend } from 'react-icons/bi';
+import emailjs from '@emailjs/browser';
 
 const ContactSection = styled.section`
   min-height: 100vh;
@@ -121,6 +122,12 @@ const SubmitButton = styled(motion.button)`
     background: var(--secondary);
     transform: translateY(-2px);
   }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
 `;
 
 const ContactInfo = styled.div`
@@ -175,17 +182,54 @@ const SocialLink = styled(motion.a)`
   }
 `;
 
+const StatusMessage = styled.p`
+  text-align: center;
+  margin-top: 0.75rem;
+  color: ${({ $type }) => ($type === 'success' ? '#4ade80' : '#f87171')};
+`;
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
+  const [isSending, setIsSending] = useState(false);
+  const [status, setStatus] = useState({ type: '', text: '' });
 
-  const handleSubmit = (e) => {
+  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+    setStatus({ type: '', text: '' });
+
+    if (!serviceId || !templateId || !publicKey) {
+      setStatus({ type: 'error', text: 'Email service is not configured. Please set EmailJS keys.' });
+      return;
+    }
+
+    try {
+      setIsSending(true);
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          reply_to: formData.email,
+          message: formData.message,
+        },
+        { publicKey }
+      );
+
+      setStatus({ type: 'success', text: 'Message sent successfully. Thank you!' });
+      setFormData({ name: '', email: '', message: '' });
+    } catch (err) {
+      setStatus({ type: 'error', text: 'Failed to send message. Please try again later.' });
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -299,11 +343,15 @@ const Contact = () => {
           </FormGroup>
           <SubmitButton
             type="submit"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            disabled={isSending}
+            whileHover={{ scale: isSending ? 1 : 1.02 }}
+            whileTap={{ scale: isSending ? 1 : 0.98 }}
           >
-            Send Message <BiSend />
+            {isSending ? 'Sending...' : 'Send Message'} <BiSend />
           </SubmitButton>
+          {status.text && (
+            <StatusMessage $type={status.type}>{status.text}</StatusMessage>
+          )}
         </Form>
       </Container>
     </ContactSection>

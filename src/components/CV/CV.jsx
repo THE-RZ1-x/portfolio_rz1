@@ -4,8 +4,9 @@ import { motion } from 'framer-motion';
 import { FaDownload, FaGraduationCap, FaBriefcase, FaCode, FaLanguage } from 'react-icons/fa';
 import { BiCertification } from 'react-icons/bi';
 
-// Import the icon directly
-const ofpptIcon = new URL('/OFPPT_Logo.ico', import.meta.url).href;
+// Base URL for GitHub Pages compatibility
+const BASE_URL = import.meta.env.BASE_URL;
+const ofpptIcon = `${BASE_URL}OFPPT_Logo.ico`;
 
 const CVSection = styled.section`
   min-height: 100vh;
@@ -167,11 +168,6 @@ const EducationHeader = styled.div`
 `;
 
 const CV = () => {
-  const handleDownload = () => {
-    // Replace this URL with your actual CV PDF file
-    const cvUrl = '/assets/RZ1-CV.pdf';
-    window.open(cvUrl, '_blank');
-  };
 
   return (
     <CVSection>
@@ -192,8 +188,8 @@ const CV = () => {
             System & Network Administrator | Full Stack Developer | Security Enthusiast
           </Subtitle>
           <DownloadButton
-            href="/assets/RZ1-CV.pdf"
-            download="RZ1-CV.pdf"
+            href={`${BASE_URL}assets/CV-SALAH-EDDINE-RHAZOUANE.pdf`}
+            download="CV-SALAH-EDDINE-RHAZOUANE.pdf"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
